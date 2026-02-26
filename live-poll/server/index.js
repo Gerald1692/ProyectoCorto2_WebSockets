@@ -5,12 +5,12 @@ const server = http.createServer();
 const wss = new WebSocket.Server({ server });
 
 /**
- * rooms structure:
+ * Estructura de salas (rooms):
  * rooms[roomId] = {
  *   question: { id, text, options[] } | null,
  *   counts: number[],
  *   total: number,
- *   votedBy: Set<string>  // name-based for simplicity
+ *   votedBy: Set<string>  // basado en nombre para simplicidad
  *   clients: Set<WebSocket>
  * }
  */
@@ -91,10 +91,10 @@ wss.on("connection", (ws) => {
     const room = getRoom(roomId);
 
     if (type === "HOST_SET_QUESTION") {
-      if (ws.meta.role !== "host") return safeSend(ws, errorMsg("Solo host puede crear preguntas."));
+      if (ws.meta.role !== "host") return safeSend(ws, errorMsg("Solo el anfitrión puede crear preguntas."));
       const q = payload.question;
       if (!q || !q.id || !q.text || !Array.isArray(q.options)) return safeSend(ws, errorMsg("Pregunta inválida."));
-      if (q.options.length < 2 || q.options.length > 4) return safeSend(ws, errorMsg("Opciones deben ser 2 a 4."));
+      if (q.options.length < 2 || q.options.length > 4) return safeSend(ws, errorMsg("Las opciones deben ser entre 2 y 4."));
 
       room.question = { id: q.id, text: q.text, options: q.options };
       room.counts = new Array(q.options.length).fill(0);
@@ -106,14 +106,14 @@ wss.on("connection", (ws) => {
 
     if (type === "VOTE") {
       const { questionId, optionIndex, name } = payload;
-      if (!room.question) return safeSend(ws, errorMsg("No hay pregunta activa."));
-      if (questionId !== room.question.id) return safeSend(ws, errorMsg("QuestionId no coincide."));
+      if (!room.question) return safeSend(ws, errorMsg("No hay ninguna pregunta activa."));
+      if (questionId !== room.question.id) return safeSend(ws, errorMsg("El ID de la pregunta no coincide."));
       if (typeof optionIndex !== "number") return safeSend(ws, errorMsg("optionIndex inválido."));
       if (optionIndex < 0 || optionIndex >= room.counts.length) return safeSend(ws, errorMsg("Opción fuera de rango."));
-      if (!name) return safeSend(ws, errorMsg("Nombre requerido para votar."));
+      if (!name) return safeSend(ws, errorMsg("Se requiere un nombre para votar."));
 
       const key = `${roomId}:${room.question.id}:${name.trim().toLowerCase()}`;
-      if (room.votedBy.has(key)) return safeSend(ws, errorMsg("Ya votaste en esta pregunta."));
+      if (room.votedBy.has(key)) return safeSend(ws, errorMsg("Ya has votado en esta pregunta."));
 
       room.votedBy.add(key);
       room.counts[optionIndex] += 1;
@@ -134,4 +134,4 @@ wss.on("connection", (ws) => {
 });
 
 const PORT = 8080;
-server.listen(PORT, () => console.log(`WS server on ws://localhost:${PORT}`));
+server.listen(PORT, () => console.log(`Servidor de WebSockets en ws://localhost:${PORT}`));
