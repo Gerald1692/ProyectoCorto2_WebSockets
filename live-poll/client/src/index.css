@@ -49,6 +49,24 @@ html[data-theme='light'] {
   --glass-border-hover: rgba(2, 6, 23, 0.15);
 }
 
+html[data-theme='light'] input,
+html[data-theme='light'] select {
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text-primary);
+}
+
+html[data-theme='light'] input:hover,
+html[data-theme='light'] select:hover {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+html[data-theme='light'] input:focus,
+html[data-theme='light'] select:focus {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15),
+              inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
 /* Backgrounds adapt by variables already used below */
 
 /* Theme toggle button */
