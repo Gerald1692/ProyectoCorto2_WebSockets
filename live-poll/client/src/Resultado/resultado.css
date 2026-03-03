@@ -1,0 +1,84 @@
+/* Estilos para el componente de resultados (ResultsChart) */
+
+.chart-container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chart-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.chart-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.chart-label {
+  font-weight: 600;
+  color: var(--text-primary, #e5e7eb);
+}
+
+.chart-value {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #9ca3af);
+}
+
+.chart-bar-bg {
+  width: 100%;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.chart-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 300ms ease;
+  background: linear-gradient(90deg, #00d9ff, #6366f1);
+}
+
+/* Variantes de color para las barras usando data attribute */
+.chart-bar-fill[data-bar-index="1"] {
+  background: linear-gradient(90deg, #00d9ff, #6366f1);
+}
+
+.chart-bar-fill[data-bar-index="2"] {
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+}
+
+.chart-bar-fill[data-bar-index="3"] {
+  background: linear-gradient(90deg, #8b5cf6, #ec4899);
+}
+
+.chart-bar-fill[data-bar-index="4"] {
+  background: linear-gradient(90deg, #ec4899, #00d9ff);
+}
+
+.chart-total {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.chart-total-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #9ca3af);
+  margin: 0;
+}
+
+.chart-total-number {
+  color: var(--accent-color, #22d3ee);
+  font-weight: 700;
+  font-size: 1.1rem;
+}

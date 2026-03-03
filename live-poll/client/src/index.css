@@ -30,6 +30,48 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Light theme overrides */
+html[data-theme='light'] {
+  color-scheme: light;
+  --bg-color: #f8fafc;
+  --bg-secondary: #ffffff;
+  --panel-bg: rgba(255, 255, 255, 0.7);
+  --accent-color: #0ea5e9;
+  --accent-color-alt: #6366f1;
+  --accent-hover: #0284c7;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-tertiary: #64748b;
+  --error-color: #dc2626;
+  --success-color: #16a34a;
+  --warning-color: #d97706;
+  --glass-border: rgba(2, 6, 23, 0.08);
+  --glass-border-hover: rgba(2, 6, 23, 0.15);
+}
+
+/* Backgrounds adapt by variables already used below */
+
+/* Theme toggle button */
+.theme-toggle {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: 1.5px solid var(--glass-border);
+  color: var(--text-secondary);
+  padding: 0.65rem 1rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-color);
+  color: var(--accent-color);
+  background: rgba(0, 0, 0, 0.04);
+}
+
 body {
   margin: 0;
   display: flex;

@@ -1,0 +1,14 @@
+.host-view{ max-width:700px; margin:0 auto }
+.host-view__topbar{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:1px solid rgba(255,255,255,.08) }
+.host-view__hint{ color:var(--text-tertiary); margin:.5rem 0 0 0; font-size:.95rem }
+.host-view__room-badge{ background:rgba(0,217,255,.1); border:1px solid rgba(0,217,255,.2); border-radius:12px; padding:.75rem 1.25rem; font-size:.85rem; color:var(--accent-color); font-weight:600; white-space:nowrap }
+.host-view__room-badge span{ font-weight:800 }
+.host-view__counter{ color:var(--text-tertiary); font-size:.8rem; margin-top:-.5rem }
+.host-view__options{ display:flex; flex-direction:column; gap:.75rem }
+.host-view__option-row{ display:flex; gap:.75rem; align-items:center; animation:fadeIn .3s ease-out }
+.host-view__option-index{ min-width:28px; height:28px; border-radius:50%; background:linear-gradient(135deg,#00d9ff 0%, #6366f1 100%); display:flex; align-items:center; justify-content:center; color:#000; font-weight:700; font-size:.8rem }
+.host-view__option-input{ flex:1 }
+.host-view__remove{ padding:.75rem .9rem; min-width:auto }
+.host-view__add{ margin-top:.75rem; width:100%; border-style:dashed; color:var(--accent-color); border-color:var(--accent-color) }
+.host-view__submit{ width:100%; margin-top:2rem; padding:1rem 2rem; font-size:1.1rem; font-weight:700 }
+.host-view__tip{ margin-top:1.5rem; padding:1rem; background:rgba(0,217,255,.05); border-radius:12px; border:1px solid rgba(0,217,255,.1); font-size:.85rem; color:var(--text-tertiary); line-height:1.6 }

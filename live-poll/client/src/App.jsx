@@ -1,15 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { useWebSocket } from './useWebSocket';
-import JoinScreen from './JoinScreen';
-import HostView from './HostView';
-import PlayerView from './PlayerView';
-import ResultsChart from './ResultsChart';
+import JoinScreen from './JoinScreen/JoinScreen';
+import HostView from './HostView/HostView';
+import Player from './Player/player';
+import Resultado from './Resultado/resultado';
 
 function App() {
   const [user, setUser] = useState(null);
   const { lastMessage, connected, error, send, clearError } = useWebSocket('ws://localhost:8080');
   const [pollState, setPollState] = useState(null);
+
+  // Theme state: default dark, switchable to light
+  const [theme, setTheme] = useState(() => {
+    try {
+      const stored = localStorage.getItem('theme');
+      return stored === 'light' ? 'light' : 'dark';
+    } catch {
+      return 'dark';
+    }
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {}
+  }, [theme]);
+
+  const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'));
 
   useEffect(() => {
     if (lastMessage && lastMessage.type === 'STATE') {
@@ -43,6 +63,13 @@ function App() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <header style={{ textAlign: 'center', padding: '2rem 1rem', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', position: 'relative' }}>
+        <button
+          onClick={toggleTheme}
+          className="theme-toggle"
+          title={`Cambiar a modo ${theme === 'dark' ? 'claro' : 'oscuro'}`}
+        >
+          {theme === 'dark' ? '☀️ Claro' : '🌙 Oscuro'}
+        </button>
         {user && (
           <button 
             onClick={handleGoBack}
@@ -91,12 +118,12 @@ function App() {
                       <h3 className="text-gradient" style={{ margin: 0 }}>Resultados en Vivo</h3>
                       <p style={{ color: 'var(--text-tertiary)', margin: '0.5rem 0 0 0', fontSize: '0.9rem' }}>{pollState.question.text}</p>
                     </div>
-                    <ResultsChart options={pollState.question.options} counts={pollState.counts} total={pollState.total} />
+                    <Resultado options={pollState.question.options} counts={pollState.counts} total={pollState.total} />
                   </div>
                 )}
               </div>
             ) : (
-              <PlayerView
+              <Player
                 roomId={user.roomId}
                 name={user.name}
                 state={pollState}
